@@ -18,7 +18,13 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
+//    @Value("${application.security.jwt.secret-key}") : TO BE REPLACED
+
     private static final String SECRET_KEY = "423F4528482B4D6251655468576D597133743677397A24432646294A404E6352";
+
+    private static final long jwtExpiration = 60000;
+
+    private static final long refreshExpiration = 604800000;
 
     public String extractUsername(String token) {
         return extractClaim(token,Claims::getSubject);
@@ -36,18 +42,33 @@ public class JwtService {
     }
 
     public String generateToken(
-            Map<String,Object> extraClaims,
+            Map<String, Object> extraClaims,
             UserDetails userDetails
-    ){
+    ) {
+        return buildToken(extraClaims, userDetails, jwtExpiration);
+    }
+
+    public String generateRefreshToken(
+            UserDetails userDetails
+    ) {
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+    }
+
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+    ) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
 
     public boolean isTokenValid(String token, UserDetails userDetails){
         final String username = extractUsername(token);

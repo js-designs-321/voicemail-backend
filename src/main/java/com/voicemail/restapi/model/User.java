@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "last_name")
     private String lastname;
@@ -38,6 +38,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Email> emails;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     @Enumerated(EnumType.STRING)
     private Role role;
