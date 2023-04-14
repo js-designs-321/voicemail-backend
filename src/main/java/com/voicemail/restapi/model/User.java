@@ -37,9 +37,6 @@ public class User implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private List<Email> emails;
-
-    @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
     @Enumerated(EnumType.STRING)
