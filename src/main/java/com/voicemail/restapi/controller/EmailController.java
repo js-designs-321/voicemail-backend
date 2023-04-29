@@ -2,7 +2,7 @@ package com.voicemail.restapi.controller;
 
 import com.voicemail.restapi.model.Email;
 import com.voicemail.restapi.service.EmailService;
-import com.voicemail.restapi.util.MailSendRequest;
+import com.voicemail.restapi.util.MailInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +29,8 @@ public class EmailController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Email> sendEmail(@RequestBody MailSendRequest request){
-        Email sendEmail = emailService.sendEmail(request);
+    public ResponseEntity<Email> sendEmail(@RequestBody MailInfo mailInfo){
+        Email sendEmail = emailService.sendEmail(mailInfo);
         return ResponseEntity.ok(sendEmail);
     }
 
