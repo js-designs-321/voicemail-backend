@@ -50,7 +50,7 @@ public class DraftService {
         }
         User receiver = userRepository.findByEmail(draftInfo.getTo())
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid email address"));
-        draft.setBody(draft.getBody());
+        draft.setBody(draftInfo.getBody());
         draft.setToEmail(receiver.getEmail());
         draft.setSubject(draftInfo.getSubject());
         return draftRepository.save(draft);
