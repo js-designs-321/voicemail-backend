@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -37,6 +38,8 @@ public class DraftService {
                 .fromEmail(draftCreatedBy.getEmail())
                 .body(draftInfo.getBody())
                 .subject(draftInfo.getSubject())
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
         return draftRepository.save(draft);
     }
@@ -53,6 +56,7 @@ public class DraftService {
         draft.setBody(draftInfo.getBody());
         draft.setToEmail(receiver.getEmail());
         draft.setSubject(draftInfo.getSubject());
+        draft.setUpdatedAt(LocalDateTime.now());
         return draftRepository.save(draft);
     }
 
