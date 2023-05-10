@@ -38,6 +38,7 @@ public class DraftService {
                 .fromEmail(draftCreatedBy.getEmail())
                 .body(draftInfo.getBody())
                 .subject(draftInfo.getSubject())
+                .attachment(draftInfo.getAttachment())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
@@ -56,6 +57,7 @@ public class DraftService {
         draft.setBody(draftInfo.getBody());
         draft.setToEmail(receiver.getEmail());
         draft.setSubject(draftInfo.getSubject());
+        draft.setAttachment(draftInfo.getAttachment());
         draft.setUpdatedAt(LocalDateTime.now());
         return draftRepository.save(draft);
     }

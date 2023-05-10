@@ -35,4 +35,8 @@ public class Email {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attachment_id")
+    private Attachment attachment;
+
 }

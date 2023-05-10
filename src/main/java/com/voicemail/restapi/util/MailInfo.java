@@ -1,5 +1,6 @@
 package com.voicemail.restapi.util;
 
+import com.voicemail.restapi.model.Attachment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +15,6 @@ public class MailInfo {
     private String to;
     private String subject;
     private String body;
+    private Attachment attachment;
 
 }

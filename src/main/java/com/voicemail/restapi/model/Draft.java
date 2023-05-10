@@ -40,4 +40,8 @@ public class Draft {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attachment_id")
+    private Attachment attachment;
+
 }

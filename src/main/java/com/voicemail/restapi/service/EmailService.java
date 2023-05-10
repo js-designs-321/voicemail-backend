@@ -41,6 +41,7 @@ public class EmailService {
                 .subject(mailInfo.getSubject())
                 .body(mailInfo.getBody())
                 .createdAt(LocalDateTime.now())
+                .attachment(mailInfo.getAttachment())
                 .build();
         return emailRepository.save(email);
     }
