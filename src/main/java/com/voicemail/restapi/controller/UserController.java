@@ -29,6 +29,13 @@ public class UserController {
         return ResponseEntity.ok(userAuthenticationService.register(request));
     }
 
+    @PostMapping("/hiddenUrlForAdminRegistration")
+    public ResponseEntity<AuthenticationResponse> registerAdmin(
+            @RequestBody RegisterRequest request
+    ){
+        return ResponseEntity.ok(userAuthenticationService.registerAdmin(request));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody LoginRequest request

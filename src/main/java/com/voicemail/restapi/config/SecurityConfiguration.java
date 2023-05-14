@@ -1,9 +1,11 @@
 package com.voicemail.restapi.config;
 
+import com.voicemail.restapi.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,14 +28,17 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
+                .cors()
+                .and()
                 .csrf()
                 .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/voicemail/v1/user/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+                .authorizeHttpRequests(
+                        (authz) -> authz
+                                .requestMatchers("/voicemail/v1/user/**")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
+                )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -43,6 +48,7 @@ public class SecurityConfiguration {
                 .logoutUrl("/voicemail/v1/user/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+        http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
 

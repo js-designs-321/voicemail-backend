@@ -6,6 +6,9 @@ import com.voicemail.restapi.repository.EmailRepository;
 import com.voicemail.restapi.repository.UserRepository;
 import com.voicemail.restapi.util.MailInfo;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ public class EmailService {
     private final UserRepository userRepository;
 
     private final UserAuthenticationService userAuthenticationService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
 
     public List<Email> getAllReceivedEmailsForCurrentUser(){
         User currentUser = userAuthenticationService.getCurrentUser();
@@ -43,7 +48,9 @@ public class EmailService {
                 .createdAt(LocalDateTime.now())
                 .attachment(mailInfo.getAttachment())
                 .build();
-        return emailRepository.save(email);
+        Email savedEmail = emailRepository.save(email);
+        LOGGER.info("Email Successfully sent");
+        return savedEmail;
     }
 
     public Email getEmailById(Long id){
