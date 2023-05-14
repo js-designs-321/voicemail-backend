@@ -7,6 +7,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.Key;
 import java.util.Base64;
@@ -25,6 +27,8 @@ public class JwtService {
     private static final long jwtExpiration = 60000;
 
     private static final long refreshExpiration = 604800000;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtService.class);
 
     public String extractUsername(String token) {
         return extractClaim(token,Claims::getSubject);

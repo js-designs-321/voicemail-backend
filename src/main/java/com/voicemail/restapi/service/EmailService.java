@@ -29,7 +29,9 @@ public class EmailService {
 
     public List<Email> getAllReceivedEmailsForCurrentUser(){
         User currentUser = userAuthenticationService.getCurrentUser();
-        return emailRepository.findAllByToEmail(currentUser.getEmail());
+        List<Email> emails = emailRepository.findAllByToEmail(currentUser.getEmail());
+        LOGGER.debug("All emails for current user are fetched successfully");
+        return emails;
     }
 
     public List<Email> getAllSendEmailsForCurrentUser(){
@@ -49,7 +51,7 @@ public class EmailService {
                 .attachment(mailInfo.getAttachment())
                 .build();
         Email savedEmail = emailRepository.save(email);
-        LOGGER.info("Email Successfully sent");
+        LOGGER.debug("Email Successfully sent");
         return savedEmail;
     }
 

@@ -8,12 +8,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
     private final TokenRepository tokenRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogoutService.class);
 
     @Override
     public void logout(

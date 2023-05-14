@@ -9,6 +9,8 @@ import com.voicemail.restapi.util.MailInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
@@ -23,6 +25,8 @@ public class DraftService {
     private final UserRepository userRepository;
 
     private final UserAuthenticationService userAuthenticationService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DraftService.class);
 
     public List<Draft> getAllDraftsForCurrentUser(){
         User currentUser = userAuthenticationService.getCurrentUser();
