@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(indexes = @Index(columnList = "token"))
 public class Token {
 
     @Id

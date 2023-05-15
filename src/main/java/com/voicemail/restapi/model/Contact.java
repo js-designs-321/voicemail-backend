@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "contacts")
+@Table(name = "contacts",indexes = @Index(columnList = "email"))
 public class Contact {
 
     @Id

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "emails")
+@Table(name = "emails",indexes = @Index(columnList = "from_email, to_email"))
 public class Email {
 
     @Id
@@ -40,3 +40,7 @@ public class Email {
     private Attachment attachment;
 
 }
+
+//    SHOW INDEX FROM your_table_name WHERE Column_name = 'your_column_name';
+//    CREATE INDEX index_name ON table_name (column_name);
+//    ALTER TABLE table_name DROP INDEX index_name;
